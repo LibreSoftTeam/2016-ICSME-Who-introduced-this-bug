@@ -322,6 +322,7 @@ The remainder of this paper is structured as follows. Next, we present the curre
 Bug-introducing code changes has been a \emph{hot} topic in the mining software repositories research community for over a decade. The most used algorithm to automatically identify bug-introducing code changes has been proposed by Sliwerski et al.~\cite{sliwerski2005changes}, which is an improvement to previous approaches~\cite{vcubranic2003hipikat,fischer2003analyzing,fischer2003populating}. Currently, it is a well-known algorithm, called SZZ, based on text differences to discover modified, added and deleted lines between the bug-fix and its previous version. The SZZ algorithm uses the CVS \texttt{annotate} command\footnote{Other versioning systems provide similar functionality to CVS \texttt{annotate}; for instance, git offers \texttt{blame}.} to identify the last commit that touched these lines.
 
 There are several research articles that suggest improvements to the SZZ algorithm. Kim et al.~\cite{kim2006automatic} use annotation graphs instead of CVS annotation to locate, in the previous versions, the lines affected by modification and deletion. Also, they avoid some false positives by not considering blank spaces, changes in the format or changes in the comments. Williams et al. have revisited the SZZ algorithm to track bug-inducing changes and identify types of changes~\cite{williams2008szz}. 
+\gema{mirar como se nombra en[20] porque uno de los revisores nos dijo : "Shouldn't 1(2) be named 'Bug-inducing' instead of 'Fix-inducing'?"}
 
 
 The SZZ algorithm (and its \emph{successors}) have had a considerable impact in the research community. Noteworthy is the fact that the paper with original the SZZ algorithm~\cite{sliwerski2005changes} has been cited, according to Google Scholar, 463 times as of January 
@@ -351,7 +352,9 @@ On the other hand, the question of whether a bug report is really a bug or not h
 mining software repositories research literature in the last years. So, Pan et al. classify the different types of bug-fix patterns that most commonly exist~\cite{pan2009toward}. Antoniol et al. have use a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. 
 
 
-%\grex{Quizas mirar si hay mas articulos en esta linea. No es muy importante esto.}
+\gema{Anadir algunas referencias que nos comentaron los revisores: (Kamei et al., "A Large-Scale Empirical Study of Just-in-Time Quality Assurance," TSE 2013
+Tan et al., "Online Defect Prediction for Imbalanced Data," ICSE SEIP 2015
+Tantithamthavorn et al., "The Impact of Mislabelling on the Performance and Interpretation of Defect Prediction Models," ICSE 2015)}
 
 
 %In addition some tools are based on SZZ too such as \cite{} 
@@ -372,7 +375,7 @@ The Launchpad of each project works with issue reports called tickets, which des
 
 In these bug reports we can find a comment with the link to Gerrit where the bug was fixed. It is in Gerrit where we can see all the patchsets proposed and the comments done by the reviewers. 
 
-\subsection{Fist Stage: Filtering}
+\subsection{First Stage: Filtering}
 \label{sec:firstStage}
 
 First, we have to identify what issues found in Launchpad are bug reports. This is not a trivial task and is labor intensive as it has to be done manually. As the process is repetitive, we developed a web-based tool\footnote{\url{bugtracking.libresoft.es}} that helps in the classification process. This tool offers all relevant information required to decide if an issue corresponds to a bug report or not. The tool uses information extracted automatically from the project repositories, and offers a web-based interface which allows for collaboration, traceability and transparency in the identification of bug reports.
@@ -408,7 +411,7 @@ From the experience of analyzing a small number of tickets, we agreed on followi
 
     \item Each time that the title or the description of a ticket describes an unexpected behaviour in the program, our criteria indicated that it was considered as a bug report. 
     \item The description of the ticket presents an optimization, deletion of a dead code or the implementation of new characteristics, we agreed not to classify it as a bug report because there is no failure. 
-    \item When the ticket described that some updates were required, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. 
+    \item When the ticket described that some updates were required, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
     \item When only test files are affected in a ticket, we classified it as not being a bug report. We consider bug errors in test files are a different type of bugs, as the software may still work as expected.
     
 %    Test files in a ticket were not be analyzed, as we consider they are not a core part of the software and are used as a testing method to determine whether the code is fit for use. When the bug exclusively lies in a test file, the ticket was not considered as bug report because the software still works as expected, only test fails. \grex{no se repiten las frases?}\gema{Te refieres al inicio de cada frase o a lo que se describo en cada frase?}
@@ -460,6 +463,7 @@ Finally we had to discard some \emph{noise} present in our results. This happene
     \item Copied lines
     \item Changes in source code comments
     \item Updates in the version number of a file/software 
+    \item These commits that were committed after the bug report was opened in Launchpad, according to to \'Sliwerski et al. ~\cite{sliwerski2005changes}.
 \end{itemize}
 
 
@@ -751,7 +755,9 @@ There are other cases where it is difficult to determine if the change is the ca
 
 But already the identification of an issue as a bug report is a process that is not as straightforward as one might think. Out of 459 tickets we were only capable to achieve a consensus for 292 cases (63.6\%), which hints to the complexity of the task. The amount of information, the number of fields and the requirement of human interaction made us invest time in the creation of a tool that assisted us in the process. 
 
+\gema{Esto es otra de las cosas que los revisores comentaron y debemos discutir: "Kim et al. [14] and Williams et al. [20] also manually analyze samples of SZZ data. However, they report much higher percentages of correct SZZ results. Potential reasons for the discrepancies should be discussed."}
 
+\gema{Otra cosa que tenemos que mencionar en el paper de acuerdo con los revisores: "it is unclear how the community can move forward from here? Since abandoning SZZ altogether is unreasonable (without proposing an alternative), can you offer advice based on findings that would help to improve SZZ? For example, an analysis of the bug fixes that mistakenly blame the previous version of those lines would likely shed some light onto how SZZ could be improved"}
 %\begin{enumerate}
 % \item No todos los casos son tan claros como los mostrados en los ejemplos, hay ocasiones en las que solo se ha anadido codigo y no somos capaces de encontrar al responsable por que no existe ninguna manera de poder identificar al commit previo. 
 % \item Hemos sido conservadores, en ocasiones cuando se han modificado lineas como if/else y se han anadido comprobacione que anteriormente no estaban, se puede pensar que el commit previo que toco la linea se olvido de realizar dichas comporbaciones, y en ese caso seria el causante del bug. Pero existen casos que la comprobacion que se necesita en el if ha aparecido porque se introdujo una nueva funcionalidad, por stanto en el momento original en el que se escribio la linea por primera vez no habia ningun error. Por tanto a menos que se descrisba esta ultima situacion en la descripcion del commit o del bug report, he considerado la idea treadicional, que el commit anterior provoco el error, porque realmente era dificil saberlo.
