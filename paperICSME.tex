@@ -275,7 +275,7 @@ Figure~\ref{fig:1} shows a clear example of what we understand as the cause of t
 \end{figure}
 
 
-According to the description in the log of the commit that fixed the bug (see Figure~\ref{fig:2}), commit \textit{31f08423} was the one where the bug was introduced, as it used a string variable, while a Boolean had to be used, keeping the concordance with the rest of the code. So, in this case, the bug was introduce in the previous commit.
+According to the description in the log of the commit that fixed the bug (see Figure~\ref{fig:2}), commit \textit{31f08423} was the one where the bug was introduced, as it used a string variable, while a Boolean had to be used, keeping the concordance with the rest of the code. Therefore, in this case, the bug was introduce in the previous commit.
 
 
 On the other hand, Figure~\ref{fig:3} shows a clear example of a case where the cause of the bug cannot be attributed to the previous commit. In this example, the bug fixing commit log (see Figure~\ref{fig:4}) describes that the name of an argument changed when updating the version causing the failure in the software. This change was done because of the new requirements in the software version, and is unrelated to the changes performed in the previous commit. When the modified lines where introduced the first time, they where not buggy.
@@ -326,7 +326,7 @@ There are several research articles that suggest improvements to the SZZ algorit
 
 
 The SZZ algorithm (and its \emph{successors}) have had a considerable impact in the research community. Noteworthy is the fact that the paper with original the SZZ algorithm~\cite{sliwerski2005changes} has been cited, according to Google Scholar, 463 times as of January 
-2016. An enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. So, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
+2016. An enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. Therefore, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
 
 %Bachmann et al. on the missing link between comments in change logs and bug fixes ~\cite{bachmann2010missing}
 %Wu et al. propose a tool solution~\cite{wu2011relink}
@@ -335,7 +335,7 @@ The SZZ algorithm (and its \emph{successors}) have had a considerable impact in 
 %\grex{maybe talk about my paper with dmg and ahmed, where bugs could be found elsewhere~\cite{german2009change}. There the talk is precisely about those bugs whose origina are elsewhere. Title of the paper: \emph{Change impact graphs: Determining the impact of prior codechanges}}\gema{me parece bien, no lo he leido pero nadie mejor que tu para resumirlo en esta seccion}
 
 
-Prechelt and Pepper offer a good overview of the limitations of bug-introducing code changes when adopted by practitioners. They point out that one of the obstacles in the way of a reliable analysis are the ``additional changes between defect insertion time and defect correction time that happen to happen at subsequently defect-corrected locations''~\cite{prechelt2014software}. Some methods that consider sources of information other than the previous commit already exist. So, German et al.~\cite{german2009change} 
+Prechelt and Pepper offer a good overview of the limitations of bug-introducing code changes when adopted by practitioners. They point out that one of the obstacles in the way of a reliable analysis are the ``additional changes between defect insertion time and defect correction time that happen to happen at subsequently defect-corrected locations''~\cite{prechelt2014software}. Some methods that consider sources of information other than the previous commit already exist. Therefore, German et al.~\cite{german2009change} 
 point out that software is in constant change, and that changes performed may have impact across the whole system and may lead to the manifestation of bugs in unchanged parts. In this case, a bug emerges in a different location from the source of the bug, which is a change to a function somewhere else in the source code base. 
 
 Sinha et al. present another technique to identify the origins of a bug in~\cite{sinha2010buginnings}. Their technique is not text-based technique, as the SZZ algorithm, as the authors analyze the effects of bug-fix changes on program dependencies. So, taking into account the semantics of the source code they achieved higher accuracy in identifying the origins of a bug.
@@ -349,7 +349,7 @@ The two approaches have some methodological patterns in common:
 
 
 On the other hand, the question of whether a bug report is really a bug or not has been widely studied in the 
-mining software repositories research literature in the last years. So, Pan et al. classify the different types of bug-fix patterns that most commonly exist~\cite{pan2009toward}. Antoniol et al. have use a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. 
+mining software repositories research literature in the last years. Therefore, Pan et al. classify the different types of bug-fix patterns that most commonly exist~\cite{pan2009toward}. Antoniol et al. have use a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. 
 
 
 \gema{Anadir algunas referencias que nos comentaron los revisores: (Kamei et al., "A Large-Scale Empirical Study of Just-in-Time Quality Assurance," TSE 2013
@@ -455,7 +455,7 @@ The procedure for each file involved in a bug fix is as follows:
   \item git checkout \textit{parent of previous commit}, git blame \textit{file involved}. With this step we can ensure that the previous commit inserted these lines.
 \end{enumerate}
 
-Finally we had to discard some \emph{noise} present in our results. This happened when the changes in the previous commit could not have caused the bug. So, we deleted the previous commits for which the following criteria were met:
+Finally we had to discard some \emph{noise} present in our results. This happened when the changes in the previous commit could not have caused the bug. Therefore, we deleted the previous commits for which the following criteria were met:
 
 \begin{itemize}
     \item Exclusively blank lines
@@ -498,18 +498,23 @@ Tempest \kern 1pc & 4,141 & 1,312 \\
 \end{table}
 
 For these four projects we analyzed if bug fixes where introduce in their previous commits. For the first stage, we used the tool described in~\ref{sec:firstStage}. Each ticket was analyzed by two researchers independently. The second stage was done manually by the first author. %that, we extract a total of 459 tickets from this projects, in which we should be sure that the bug fixes come from a bug report, because two of five issues are misclassified \cite{herzig2013s} and this should cause bias in our final results.
+\gema{He calculado la media, en minutos, del tiempo empleado en encontrar la causa del bug en cada ticket. La media a sido alrededor de 16 minutos.}
+\gema{En el primer estudio realizado por Andrea y por mi con en análisis de 100 tickets, en la segunda fase obtuvimos un 74\% de similitud entre su analisis y el mio. Después de una revisión conjunta, incrementamos ese porcentaje hasta el 90 \% }
+
+%- It is unclear if the first stage (classifying the tickets) was done by two or three researchers. In Section 4 it is said to be two, as in Section 5.1 (they analyzed 459 tickets, so 917 reviews in total). However, Table 2 shows results for three researchers. In that case (3 researchers), it is unclear how issues were handled when they were two researchers in agreement and one in disagreement. Even if it is a subjective task, having the first stage (classification) with more than one researcher and the concordances help. While the numbers of Table 2 suggest that 3 different researchers worked on the task but each issue was evaluated by only two of the three developers, this is never mentioned on the paper.
+
 
 \section{Results}
 \label{sec:results}
 
 A total of 459 different tickets from the Launchpad of the four main projects in OpenStack: 125 tickets from Nova, 125 tickets from cinder, 125 tickets from Horizon and 84 tickets from Neutron.
 
-\subsection{Fist Stage}
+\subsection{First Stage}
 \label{sec:resultsFS}
 
 We classify a total of 459 tickets using the tool, resulting in 917 reviews\footnote{One review was discarded as it was left empty.}. Only those tickets classified as bug reports by both researchers were considered in the next stage, which analyzes if the cause of the bug was introduced in their previous commits. This process requires manual inspection by researchers. In the mean, classifying a ticket takes between 5 and 10 minutes, although the amount of time decreases with experience as could be expected. 
 
-%\gema{[...] se podria medir en github en tiempo que les ha llevado a cada uno entre ticket y ticket, en aquellos casos que se puedan medir y hacer una media, Que te parece?} \grex{No es muy importante, pero quedaria bien}
+\gema{[...] se podria medir en github en tiempo que les ha llevado a cada uno entre ticket y ticket, en aquellos casos que se puedan medir y hacer una media, Que te parece?} \grex{No es muy importante, pero quedaria bien}
 
 
 \begin{table*}
@@ -532,7 +537,7 @@ Agree & (209) 72\% & (74) 25\% & (9) ~3\% & 292 (100\%) \\
 %\grex{Tiene sentido añadir porcentajes, como he hecho a la columna de Total?}
 %26-56 hours
 
-Table~\ref{tab:2} shows the classification percentages of the analized tickets for each researcher, and the number of tickets classified into the same group by two different researchers. %Obtaining that the researchers R1 and R2 had a similar data in their results, whereas research R2 got results significantly different with a higher number of tickets classified as Bug Report.
+Table~\ref{tab:2} shows the classification percentages of the analyzed tickets for each researcher, and the number of tickets classified into the same group by two different researchers. %Obtaining that the researchers R1 and R2 had a similar data in their results, whereas research R2 got results significantly different with a higher number of tickets classified as Bug Report.
 As a result, researchers identified 292 tickets in the same group, that is, their results matched in over 70\% of the cases. Of those, 209 tickets had been classified in the \emph{Bug report} group, 74 in the \emph{Not Bug Report} group, and 9 tickets classified in the \emph{Undecided} group.
 
 We also measured the concordance in the classification of each developer according to the project analyzed (see table~\ref{tab:3}). Values obtained by the three researchers are very similar, in general around a 70\%. The concordance values were always above 60\%. 
@@ -588,7 +593,7 @@ Previous commits \textit{e7be0a988} (subfigure (3)) has also been identified; ho
 \label{fig:manyprevious}       % Give a unique label
 \end{figure*}
 
-We have identified a total of 462 previous commits which could be the cause of the 209 bug reports under analysis. Then, we analyzed the bug reports together with their previous commits discarding the cases where the previous commit was a false positive (\emph{noise}) such as blank lines, changes in comments, commits added previously date of bug report or even a change in the version of the file. So, in total we have analyzed 349 previous commits.
+We have identified a total of 462 previous commits which could be the cause of the 209 bug reports under analysis. Then, we analyzed the bug reports together with their previous commits discarding the cases where the previous commit was a false positive (\emph{noise}) such as blank lines, changes in comments, commits added previously date of bug report or even a change in the version of the file. Therefore, in total we have analyzed 349 previous commits.
 
 As can be seen in Table~\ref{tab:responsability}, from the 349 previous commits, 179 have been considered to be the cause of the bug, whereas 129 have been identified as not being the cause.
 
@@ -814,7 +819,9 @@ With our methodology we have identified which are real changes that introduced t
 
 
 A final field of future work could be concerned with the full automation of the methodology presented in this paper, developing an automatic classifier. %\grex{mejorar este parrafo.}
-Another interesting investigation could perform the same empirical study on a project with a less active community, to prove if our idea is fulfill in other projects. So, for projects that do not evolve as rapidly as OpenStack, e.g., those with a more stable API, could offer completely different results even if applying the same analysis methodology used in this paper.
+Another interesting investigation could perform the same empirical study on a project with a less active community, to prove if our idea is fulfill in other projects. Therefore, for projects that do not evolve as rapidly as OpenStack, e.g., those with a more stable API, could offer completely different results even if applying the same analysis methodology used in this paper.
+
+\gema{Debemos añadir a trabajo futuro algo de esto: "Further analysis or reasoning about which types of bugs were mischaracterized by SZZ and why that happened is also missing from the paper, because of which the implications of the study is not clear."}
 
 
 %ACKNOWLEDGMENTS are optional
