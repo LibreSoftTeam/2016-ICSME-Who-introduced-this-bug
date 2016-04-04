@@ -146,20 +146,17 @@
 \alignauthor
 Gema Rodr\'iguez-P\'erez\\
        \affaddr{GSyC/LibreSoft \\ Universidad Rey Juan Carlos}\\
-       %\affaddr{1932 Wallamaloo Lane}\\
        \affaddr{Madrid, Spain}\\
        \email{gerope@libresoft.es}
 % 2nd. author
 \alignauthor
 Jesus M. Gonzalez-Barahona\\
       \affaddr{GSyC/LibreSoft \\ Universidad Rey Juan Carlos}\\
-       %\affaddr{1932 Wallamaloo Lane}\\
        \affaddr{Madrid, Spain}\\
        \email{jgb@gsyc.es}
 % 3rd. author
 \alignauthor Gregorio Robles\\
        \affaddr{GSyC/LibreSoft \\ Universidad Rey Juan Carlos}\\
-       %\affaddr{1932 Wallamaloo Lane}\\
        \affaddr{Madrid, Spain}\\
        \email{grex@gsyc.urjc.es}
 \and  % use '\and' if you need 'another row' of author names
@@ -352,7 +349,7 @@ On the other hand, the question of whether a bug report is really a bug or not h
 mining software repositories research literature in the last years. Therefore, Pan et al. classify the different types of bug-fix patterns that most commonly exist~\cite{pan2009toward}. Antoniol et al. have use a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. 
 
 
-\gema{Anadir algunas referencias que nos comentaron los revisores: (Kamei et al., "A Large-Scale Empirical Study of Just-in-Time Quality Assurance," TSE 2013
+\gema{Añadir algunas referencias que nos comentaron los revisores: (Kamei et al., "A Large-Scale Empirical Study of Just-in-Time Quality Assurance," TSE 2013
 Tan et al., "Online Defect Prediction for Imbalanced Data," ICSE SEIP 2015
 Tantithamthavorn et al., "The Impact of Mislabelling on the Performance and Interpretation of Defect Prediction Models," ICSE 2015)}
 
@@ -498,8 +495,9 @@ Tempest \kern 1pc & 4,141 & 1,312 \\
 \end{table}
 
 For these four projects we analyzed if bug fixes where introduce in their previous commits. For the first stage, we used the tool described in~\ref{sec:firstStage}. Each ticket was analyzed by two researchers independently. The second stage was done manually by the first author. %that, we extract a total of 459 tickets from this projects, in which we should be sure that the bug fixes come from a bug report, because two of five issues are misclassified \cite{herzig2013s} and this should cause bias in our final results.
+\gema{He calculado el tiempo medio que cada investigador (Nelson, Dorealda y Yo) ha invertido en el análisis de los tickets ens la primera fase, usando la herrramienta. Siguiendo el orden: (3'6, 4, 3,6)}
 \gema{He calculado la media, en minutos, del tiempo empleado en encontrar la causa del bug en cada ticket. La media a sido alrededor de 16 minutos.}
-\gema{En el primer estudio realizado por Andrea y por mi con en análisis de 100 tickets, en la segunda fase obtuvimos un 74\% de similitud entre su analisis y el mio. Después de una revisión conjunta, incrementamos ese porcentaje hasta el 90 \% }
+\gema{En el primer estudio realizado por Andrea y por mi con en análisis de 100 tickets; en la primera fase obtuvimos un porcentaje de acuerdo del 83\% incrementándolo hasta un 94\% tras una discusión entre ambas. En cuanto a la segunda fase, obtuvimos un 74\% de similitud entre su análisis y el mio. Después de una revisión conjunta, incrementamos ese porcentaje hasta el 90\%. En este estudio la clasificaión de la segunda fase salió (53\% ,35\% y 11\%) pero no habíamos quitado los falsos positivos.}
 
 %- It is unclear if the first stage (classifying the tickets) was done by two or three researchers. In Section 4 it is said to be two, as in Section 5.1 (they analyzed 459 tickets, so 917 reviews in total). However, Table 2 shows results for three researchers. In that case (3 researchers), it is unclear how issues were handled when they were two researchers in agreement and one in disagreement. Even if it is a subjective task, having the first stage (classification) with more than one researcher and the concordances help. While the numbers of Table 2 suggest that 3 different researchers worked on the task but each issue was evaluated by only two of the three developers, this is never mentioned on the paper.
 
