@@ -495,7 +495,9 @@ Tempest \kern 1pc & 4,141 & 1,312 \\
 \end{table}
 
 For these four projects we analyzed if bug fixes where introduce in their previous commits. For the first stage, we used the tool described in~\ref{sec:firstStage}. Each ticket was analyzed by two researchers independently. The second stage was done manually by the first author. %that, we extract a total of 459 tickets from this projects, in which we should be sure that the bug fixes come from a bug report, because two of five issues are misclassified \cite{herzig2013s} and this should cause bias in our final results.
-\gema{He calculado el tiempo medio que cada investigador (Nelson, Dorealda y Yo) ha invertido en el análisis de los tickets ens la primera fase, usando la herrramienta. Siguiendo el orden: (3'6, 4, 3,6)}
+\gema{He calculado el tiempo medio que cada investigador (Nelson, Dorealda y Yo) ha invertido en el análisis de los tickets en
+ la primera fase, usando la herrramienta. Siguiendo el orden: (4.09, 3.35, 4.12)}
+
 \gema{He calculado la media, en minutos, del tiempo empleado en encontrar la causa del bug en cada ticket. La media a sido alrededor de 16 minutos.}
 \gema{En el primer estudio realizado por Andrea y por mi con en análisis de 100 tickets; en la primera fase obtuvimos un porcentaje de acuerdo del 83\% incrementándolo hasta un 94\% tras una discusión entre ambas. En cuanto a la segunda fase, obtuvimos un 74\% de similitud entre su análisis y el mio. Después de una revisión conjunta, incrementamos ese porcentaje hasta el 90\%. En este estudio la clasificaión de la segunda fase salió (53\% ,35\% y 11\%) pero no habíamos quitado los falsos positivos.}
 
@@ -771,7 +773,15 @@ But already the identification of an issue as a bug report is a process that is 
 
 In any case, our research shows evidence that assuming that the previous commit is where the cause of a bug can be found does not hold for a not insignificant percentage of bugs. 
 
-
+\gema{En la discussion podemos poner tambien una pequeña lista con los casos mas repetidos en los que el commit previo no es responsable: He revisado esos casos y he obtenido la siguiente lista:
+- Cambios en la APi\\
+- Cambios en el nombre de una variable\\
+- Cambios en el formato, pero no son FP, si no que despues del cambio la funcion hace lo mismo que antes, por ejemplo guardan valores de retorno de funciones en variables y usan esa variable en vez de la llamada de la función directamente, o \\
+- Lineas eliminando 'imports' que no se usan \\
+- Evolución del lenguaje ó código ya que antes no podía soportar ciertas cosas como por ejemplo traducciones y ahora si, por tanto los tickets hablan de fallos en la traduccion y en realidad no habia traduccion porque probablemente en el momento de insertar el código no se soportaba. \\
+- Errores gramaticales arrastrados de commit previos.
+- Actualizaciones de SO, requisitos, etc.
+}
 \section{Threats to validity}
 \label{sec:threats}
 
@@ -805,7 +815,7 @@ The external threats, related to the case of the project, are following:
     \item OpenStack is a special project with a constant evolution due to their active community of developers. Maybe, in other projects with less commits per year, results may be totally different.
 \end{itemize}
 
-
+\gema{Debemos poner en los threats to validity la subjetividad del estudio}
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
 
