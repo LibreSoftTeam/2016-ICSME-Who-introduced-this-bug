@@ -299,7 +299,6 @@ The goal of this paper is to find out to which extent the cause of bugs can be a
 
 In detail, we attempt to address the following research questions:
 
-%\grex{rephrase RQs}
 \begin{itemize}
      \item RQ1: How can we identify changes done to fix a bug?
      \item RQ2: How often is the previous commit the cause of the bug?
@@ -324,7 +323,7 @@ There are several research articles that suggest improvements to the SZZ algorit
 
 
 The SZZ algorithm (and its \emph{successors}) have had a considerable impact in the research community. Noteworthy is the fact that the paper with original the SZZ algorithm~\cite{sliwerski2005changes} has been cited, according to Google Scholar, 475 times as of April 
-2016. An enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. Therefore, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Altman et al. use it to predict whether a change is buggy at the time of a commit, evaluating the change classification techniques to address the incorrect evaluation presented by cross-validation ~\cite{altman1968financial}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
+2016. An enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. Therefore, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Altman et al. use it to predict whether a change is buggy at the time of a commit, evaluating the change classification techniques to address the incorrect evaluation presented by cross-validation~\cite{altman1968financial}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
 
 %\grex{maybe talk about my paper with dmg and ahmed, where bugs could be found elsewhere~\cite{german2009change}. There the talk is precisely about those bugs whose origina are elsewhere. Title of the paper: \emph{Change impact graphs: Determining the impact of prior codechanges}}
 
@@ -355,12 +354,8 @@ mining software repositories research literature in the last years. Therefore, P
  
 %\gema{A brief summary about "Online Defect Prediction for Imbalanced Data",\cite{altman1968financial}: A change classification can predict whether a change is buggy at the time of the commit, which allow to developers to act on the prediction results as soon as a commit is made, the benefit is that reviewers have less code to examine to identify defect, but the problem is that for the same reason is more difficult to predict on changes accurately. The authors applied change classification on a proprietary code case and share the experience and lesson learned. They evaluated the change classification techniques to address the incorrect evaluation presented by cross-validation, and applied some techniques improving the precision, they conclude that interpretable prediction models  are needed for software defect prediction, They used the SZZ approach saying that 'A line that is deleted or changed by a bug-fixing change is a faulty line'}
 
-%In addition some tools are based on SZZ too such as \cite{} 
-%Finally our idea.
-
 \section{Methodology}
 \label{sec:methodology}
-%We present our approach to identify how and where a bug was inserted into the source code, causing a later fix. 
 
 All data needed to analyze when the bug was introduced can be obtained from the issue tracking systems and the code review systems used generally by free/open source software (FOSS) projects. In our analysis, we have focused on Launchpad\footnote{\url{https://launchpad.net/}} as issue tracking system, and Gerrit\footnote{\url{https://www.gerritcodereview.com/}} as code review supporting tool, as they are widely used by FOSS projects nowadays, but our methodology should be adaptable to any such tool.
 
@@ -409,11 +404,9 @@ From the experience of analyzing a small number of tickets, we agreed on followi
 
     \item Each time that the title or the description of a ticket describes an unexpected behaviour in the program, our criteria indicated that it was considered as a bug report. 
     \item The description of the ticket presents an optimization, deletion of a dead code or the implementation of new characteristics, we agreed not to classify it as a bug report because there is no failure. 
-    \item When the ticket described that some updates were required, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
+    \item When the ticket described that some updates in the code were required such as updates in the SO or in a version of a package/module which is being used in the code, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
     \item When only test files are affected in a ticket, we classified it as not being a bug report. We consider bug errors in test files are a different type of bugs, as the software may still work as expected.
     
-%    Test files in a ticket were not be analyzed, as we consider they are not a core part of the software and are used as a testing method to determine whether the code is fit for use. When the bug exclusively lies in a test file, the ticket was not considered as bug report because the software still works as expected, only test fails. \grex{no se repiten las frases?}\gema{Te refieres al inicio de cada frase o a lo que se describo en cada frase?}
-
 \end{enumerate}
 
 Sometimes we were unable to answer all the questions due to having insufficient data or because of the complexity of the issue. In this case, the ticket was classified into the \textit{Undecided} group.
@@ -461,7 +454,7 @@ Finally we had to discard some \emph{noise} present in our results. This happene
     \item Copied lines
     \item Changes in source code comments
     \item Updates in the version number of a file/software 
-    \item These commits that were committed after the bug report was opened in Launchpad, according to to \'Sliwerski et al. ~\cite{sliwerski2005changes}.
+    \item These commits that were committed after the bug report was opened in Launchpad, according to \'Sliwerski et al.~\cite{sliwerski2005changes}.
 \end{itemize}
 
 
@@ -495,11 +488,9 @@ Tempest \kern 1pc & 4,141 & 1,312 \\
 %\end{center}
 \end{table}
 
-For these four projects we analyzed if bug fixes where introduce in their previous commits. For the first stage, we used the tool described in~\ref{sec:firstStage}. Each ticket was analyzed by two researchers independently. The second stage was done manually by the first author. %that, we extract a total of 459 tickets from this projects, in which we should be sure that the bug fixes come from a bug report, because two of five issues are misclassified \cite{herzig2013s} and this should cause bias in our final results.
-\gema{He calculado el tiempo medio que cada investigador (Nelson, Dorealda y Yo) ha invertido en el análisis de los tickets en
- la primera fase, usando la herrramienta. Siguiendo el orden: (4.09, 3.35, 4.12)}
+For these four projects we analyzed if bug fixes where introduce in their previous commits. For the first stage, we used the tool described in~\ref{sec:firstStage}. Three different researchers, were involved in this stage, resulting that each ticket was analyzed by two of the researchers independently. The second stage was done manually by the first author. %that, we extract a total of 459 tickets from this projects, in which we should be sure that the bug fixes come from a bug report, because two of five issues are misclassified \cite{herzig2013s} and this should cause bias in our final results.
 
-\gema{He calculado la media, en minutos, del tiempo empleado en encontrar la causa del bug en cada ticket. La media a sido alrededor de 16 minutos.}
+
 \gema{En el primer estudio realizado por Andrea y por mi con en análisis de 100 tickets; en la primera fase obtuvimos un porcentaje de acuerdo del 83\% incrementándolo hasta un 94\% tras una discusión entre ambas. En cuanto a la segunda fase, obtuvimos un 74\% de similitud entre su análisis y el mio. Después de una revisión conjunta, incrementamos ese porcentaje hasta el 90\%. En este estudio la clasificaión de la segunda fase salió (53\% ,35\% y 11\%) pero no habíamos quitado los falsos positivos.}
 
 %- It is unclear if the first stage (classifying the tickets) was done by two or three researchers. In Section 4 it is said to be two, as in Section 5.1 (they analyzed 459 tickets, so 917 reviews in total). However, Table 2 shows results for three researchers. In that case (3 researchers), it is unclear how issues were handled when they were two researchers in agreement and one in disagreement. Even if it is a subjective task, having the first stage (classification) with more than one researcher and the concordances help. While the numbers of Table 2 suggest that 3 different researchers worked on the task but each issue was evaluated by only two of the three developers, this is never mentioned on the paper.
@@ -513,9 +504,11 @@ A total of 459 different tickets from the Launchpad of the four main projects in
 \subsection{First Stage}
 \label{sec:resultsFS}
 
-We classify a total of 459 tickets using the tool, resulting in 917 reviews\footnote{One review was discarded as it was left empty.}. Only those tickets classified as bug reports by both researchers were considered in the next stage, which analyzes if the cause of the bug was introduced in their previous commits. This process requires manual inspection by researchers. In the mean, classifying a ticket takes between 5 and 10 minutes, although the amount of time decreases with experience as could be expected. 
-
-\gema{[...] se podria medir en github en tiempo que les ha llevado a cada uno entre ticket y ticket, en aquellos casos que se puedan medir y hacer una media, Que te parece?} \grex{No es muy importante, pero quedaria bien}
+We classify a total of 459 tickets using the tool, resulting in 917 reviews\footnote{One review was discarded as it was left empty.}. Only those tickets classified as bug reports  with a percentage of agreement of 100\% by both researchers were considered in the next stage, which analyzes if the cause of the bug was introduced in their previous commits. Thus, to measure agreement among researchers in the context of a content analysis, we have used the percent agreement variable~\cite{neuendorf2002content}. This process requires manual inspection by researchers. In the mean, classifying a ticket takes around 5 minutes, although the amount of time decreases with experience as could be expected. We have measured in Github the mean spends analyzing a ticket per each researcher, obtaining in the best case 3.35 minutes while 4.09 and 4.12 for the other two. Whereas analyzing who caused the bug, in mean, takes around 16 minutes per bug report. 
+ 
+\gema{He calculado el tiempo medio que cada investigador (Nelson, Dorealda y Yo) ha invertido en el análisis de los tickets en
+ la primera fase, usando la herrramienta. Siguiendo el orden: (4.09, 3.35, 4.12)}
+\gema{He calculado la media, en minutos, del tiempo empleado en encontrar la causa del bug en cada ticket. La media a sido alrededor de 16 minutos.}
 
 
 \begin{table*}
@@ -535,8 +528,6 @@ Agree & (209) 72\% & (74) 25\% & (9) ~3\% & 292 (100\%) \\
 %\end{center}
 \end{table*}
 
-%\grex{Tiene sentido añadir porcentajes, como he hecho a la columna de Total?}
-%26-56 hours
 
 Table~\ref{tab:2} shows the classification percentages of the analyzed tickets for each researcher, and the number of tickets classified into the same group by two different researchers. %Obtaining that the researchers R1 and R2 had a similar data in their results, whereas research R2 got results significantly different with a higher number of tickets classified as Bug Report.
 As a result, researchers identified 292 tickets in the same group, that is, their results matched in over 70\% of the cases. Of those, 209 tickets had been classified in the \emph{Bug report} group, 74 in the \emph{Not Bug Report} group, and 9 tickets classified in the \emph{Undecided} group.
@@ -729,9 +720,6 @@ Results are given in Table~\ref{tab:secondStage3}; in 16 bug reports all the pre
 \end{center}
 \end{table*}
 
-
-
-
 \vspace{0.2cm}
 \fbox{\begin{minipage}{25em}
 \textbf{RQ2: Only 50\% of the previous commits analyzed caused the failure in the system, whereas the 37\% of them did not introduce the bug in the code source.} 
@@ -761,7 +749,6 @@ There are other cases where it is difficult to determine if the change is the ca
 
 But already the identification of an issue as a bug report is a process that is not as straightforward as one might think. Out of 459 tickets we were only capable to achieve a consensus for 292 cases (63.6\%), which hints to the complexity of the task. The amount of information, the number of fields and the requirement of human interaction made us invest time in the creation of a tool that assisted us in the process. 
 
-\gema{Esto es otra de las cosas que los revisores comentaron y debemos discutir: "Kim et al. [14] and Williams et al. [20] also manually analyze samples of SZZ data. However, they report much higher percentages of correct SZZ results. Potential reasons for the discrepancies should be discussed."}
 
 \gema{Otra cosa que tenemos que mencionar en el paper de acuerdo con los revisores: "it is unclear how the community can move forward from here? Since abandoning SZZ altogether is unreasonable (without proposing an alternative), can you offer advice based on findings that would help to improve SZZ? For example, an analysis of the bug fixes that mistakenly blame the previous version of those lines would likely shed some light onto how SZZ could be improved"}
 %\begin{enumerate}
@@ -771,8 +758,18 @@ But already the identification of an issue as a bug report is a process that is 
 %\end{enumerate}
 
 %\gema{Algunos de los problemas que nos hemos encontrado durante el analisis y que podrian ser resueltos de otra forma diferente a la nuestra y quizas puede que varie algo los resultados no lo se}
+In studies such as Kim et al.~\cite{kim2006automatic} and Williams et al. \cite{williams2008szz} also manually analyzed samples of SZZ data. However, they report much higher percentages of correct SZZ results than in this study. The reason is that in Kim et al.~\cite{kim2006automatic} the time spends in the manual verification, in mean was 40 seconds, was lower than us, so they didn't go in depth as much as we have done. Whereas we have analyzed the whole context of a bug-fix they only focused in verify the bug-fix hunks, thus they could omit changes in the API or changes due to the evolution of the code. In the other hand, Williams et al.\~cite{williams2008szz} only took 25 random bug fix commits to manually analyze, and probably it was a small size population.
+\gema{Esto es otra de las cosas que los revisores comentaron y debemos discutir: "Kim et al. [14] and Williams et al. [20] also manually analyze samples of SZZ data. However, they report much higher percentages of correct SZZ results. Potential reasons for the discrepancies should be discussed."}
 
-In any case, our research shows evidence that assuming that the previous commit is where the cause of a bug can be found does not hold for a not insignificant percentage of bugs. 
+In any case, our research shows evidence that assuming that the previous commit is where the cause of a bug can be found does not hold for a not insignificant percentage of bugs. Most common kind of previous commit which didn't caused the bug are:
+\begin{itemize}
+  \item Changes in the API, the addition of an argument in an API called.
+  \item Variable renaming.
+  \item Updates of SO, packages or requirements.
+  \item Optimization of the code in some lines. In the context of before and after the change the code do the same, usually this kind of previous commit is in bug reports with more than one previous commit. 
+  \item Gramatical bugs influenced from its previous commit. 
+\end{itemize}
+ 
 
 \gema{En la discussion podemos poner tambien una pequeña lista con los casos mas repetidos en los que el commit previo no es responsable: He revisado esos casos y he obtenido la siguiente lista:
 - Cambios en la APi\\
@@ -784,7 +781,7 @@ In any case, our research shows evidence that assuming that the previous commit 
 - Actualizaciones de SO, requisitos, etc.
 }
 
-\gema{Defect models which identify defect-prone software models  could improve their recall and precision predicting defect-prones modules whereas they have into account our study[1, "An Extensive Comparison of Bug Prediction Approaches", 17, 27, 33, 34, 36, "BugCache for Inspections: Hit or Miss?", “Predicting Defects for Eclipse,”]}
+
 \section{Threats to validity}
 \label{sec:threats}
 
@@ -808,6 +805,8 @@ The internal threats related to the researchers that have conducted the study ar
     \item We are only using part of the information that the tickets provide, like comments and text. There could be a recognized pattern in the data, unknown at first sight, that involves other parts of the information.
     \item We have used a random script to extract the tickets from Launchpad that have been reported during 2015. There could be unintended bias of the data, because many reasons, as for instance the phase of the project.
     \item In some cases, researchers may have classified the previous commit as the cause of the bug, even if this may not be the case (see discussion on additional conditions in if statements).
+    \item Also we need add the subjectivity that could present our study.
+    \gema{Debemos poner en los threats to validity la subjetividad del estudio}
 \end{itemize}
 
 The external threats, related to the case of the project, are following:
@@ -818,13 +817,12 @@ The external threats, related to the case of the project, are following:
     \item OpenStack is a special project with a constant evolution due to their active community of developers. Maybe, in other projects with less commits per year, results may be totally different.
 \end{itemize}
 
-\gema{Debemos poner en los threats to validity la subjetividad del estudio}
 \section{Conclusions and Future Work}
 \label{sec:conclusions}
 
 The empirical experiment carried out in OpenStack supported that the current premise assumed does not hold for a large fraction of the analyzed bugs, because around the 37\% of the previous commits were not the cause of the bug.
 
-With our methodology we have identified which are real changes that introduced the bug, and this could be useful to improve the accuracy of those tools developed to prevent bugs. Also, the software developers stand to benefit from identifying where the bug was inserted, improving their methodology.
+With our methodology we have identified which are real changes that introduced the bug, and this could be useful to improve the accuracy of those tools/models developed to prevent bugs. Also, the software developers stand to benefit from identifying where the bug was inserted, improving their methodology.
 %How to plan to apply the knowledge in a way that can benefit software engineers.
 %What are the anticipated contributions of the work?  How will you evaluate them to demonstrate usefulness?
 
@@ -833,7 +831,6 @@ A final field of future work could be concerned with the full automation of the 
 Another interesting investigation could perform the same empirical study on a project with a less active community, to prove if our idea is fulfill in other projects. Therefore, for projects that do not evolve as rapidly as OpenStack, e.g., those with a more stable API, could offer completely different results even if applying the same analysis methodology used in this paper.
 
 \gema{Debemos añadir a trabajo futuro algo de esto: "Further analysis or reasoning about which types of bugs were mischaracterized by SZZ and why that happened is also missing from the paper, because of which the implications of the study is not clear."}
-
 
 %ACKNOWLEDGMENTS are optional
 \section{Acknowledgments}
