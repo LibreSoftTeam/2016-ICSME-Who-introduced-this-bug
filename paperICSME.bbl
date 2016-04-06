@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{altman1968financial}
+E.~I. Altman.
+\newblock Financial ratios, discriminant analysis and the prediction of
+  corporate bankruptcy.
+\newblock {\em The journal of finance}, 23(4):589--609, 1968.
+
 \bibitem{antoniol2008bug}
 G.~Antoniol, K.~Ayari, M.~Di~Penta, F.~Khomh, and Y.-G. Gu{\'e}h{\'e}neuc.
 \newblock Is it a bug or an enhancement?: a text-based approach to classify
@@ -75,6 +81,13 @@ Y.~Kamei, S.~Matsumoto, A.~Monden, K.-i. Matsumoto, B.~Adams, and A.~E. Hassan.
 \newblock In {\em Software Maintenance (ICSM), 2010 IEEE International
   Conference on}, pages 1--10. IEEE, 2010.
 
+\bibitem{kamei2013large}
+Y.~Kamei, E.~Shihab, B.~Adams, A.~E. Hassan, A.~Mockus, A.~Sinha, and
+  N.~Ubayashi.
+\newblock A large-scale empirical study of just-in-time quality assurance.
+\newblock {\em Software Engineering, IEEE Transactions on}, 39(6):757--773,
+  2013.
+
 \bibitem{kim2008classifying}
 S.~Kim, E.~J. Whitehead~Jr, and Y.~Zhang.
 \newblock Classifying software changes: Clean or buggy?
@@ -109,6 +122,13 @@ J.~{\'S}liwerski, T.~Zimmermann, and A.~Zeller.
 \newblock When do changes induce fixes?
 \newblock {\em Proceedings of the 2005 International Workshop on Mining
   software repositories}, pages 1--5, 2005.
+
+\bibitem{tantithamthavorn2015impact}
+C.~Tantithamthavorn, S.~McIntosh, A.~E. Hassan, A.~Ihara, and K.~Matsumoto.
+\newblock The impact of mislabelling on the performance and interpretation of
+  defect prediction models.
+\newblock In {\em Software Engineering (ICSE), 2015 IEEE/ACM 37th IEEE
+  International Conference on}, volume~1, pages 812--823. IEEE, 2015.
 
 \bibitem{tantithamthavorn2013mining}
 C.~Tantithamthavorn, R.~Teekavanich, A.~Ihara, and K.-i. Matsumoto.
