@@ -318,8 +318,8 @@ The remainder of this paper is structured as follows. Next, we present the curre
 
 The study of bug-introducing code changes has been a \emph{hot} topic in the mining software repositories research community for over a decade. The most used algorithm to automatically identify them has been proposed by Sliwerski et al.~\cite{sliwerski2005changes}, which is an improvement to previous approaches~\cite{vcubranic2003hipikat,fischer2003analyzing,fischer2003populating}. Currently, it is a well-known algorithm, called SZZ, based on text differences to discover modified, added and deleted lines between the bug-fix and its previous version. The SZZ algorithm uses the CVS \texttt{annotate} command\footnote{Other versioning systems provide similar functionality to CVS \texttt{annotate}; for instance, git offers \texttt{blame}.} to identify the last commit that \emph{touched} these lines.
 
-There are several research articles that suggest improvements to the SZZ algorithm. Kim et al.~\cite{kim2006automatic} use annotation graphs instead of CVS annotation to locate, in the previous versions, the lines affected by modification and deletion. Also, they avoid some false positives by not considering blank spaces, changes in the format or changes in the comments. Williams et al. have revisited the SZZ algorithm to track bug-inducing changes and identify types of changes~\cite{williams2008szz}. 
-\gema{mirar como se nombra en[20] porque uno de los revisores nos dijo : "Shouldn't 1(2) be named 'Bug-inducing' instead of 'Fix-inducing'?"}
+There are several research articles that suggest improvements to the SZZ algorithm. Kim et al.~\cite{kim2006automatic} use annotation graphs instead of CVS annotation to locate, in the previous versions, the lines affected by modification and deletion. Also, they avoid some false positives by not considering blank spaces, changes in the format or changes in the comments. Williams et al. have revisited the SZZ algorithm to track fix-inducing changes and identify types of changes~\cite{williams2008szz}. 
+\gema{mirar como se nombra en[20] porque uno de los revisores nos dijo : "Shouldn't 1(2) be named 'Bug-inducing' instead of 'Fix-inducing'?"}\gema{He mirado como se nombra el ariticulo y es fix-inducing no bug-inducing. }
 
 
 The SZZ algorithm (and its \emph{successors}) have had a considerable impact in the research community. Noteworthy is the fact that the paper with original the SZZ algorithm~\cite{sliwerski2005changes} has been cited, according to Google Scholar, 475 times as of April 
@@ -404,7 +404,7 @@ From the experience of analyzing a small number of tickets, we agreed on followi
 
     \item Each time the title or the description of a ticket describes an unexpected behavior in the program, it was considered as a bug report. 
     \item If the description of the ticket presents an optimization, deletion of a dead code or the implementation of new characteristics, we agreed not to classify it as a bug report because there is no failure. 
-    \item When the ticket described that some updates in the code were required, such as updates in the SO \grex{what is a SO?} or in a version of a package/module which is being used in the code, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
+    \item When the ticket described that some updates in the code were required, such as updates in the OS \grex{what is a SO?} \gema{queria poner en el Sistema Operativo pero se me coló el español...}or in a version of a package/module which is being used in the code, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
     \item When only test files are affected by a ticket, it is not a bug report. We consider bug errors in test files to be of a different type, as the software may still work as expected.
     
 \end{enumerate}
@@ -757,29 +757,28 @@ But already the identification of an issue as a bug report is a process that is 
 % \item Hemos utilizado la herramienta porque es un proceso complicado. Para la primera parte de decidir si es o no es un bug report hemos tenido que desarrollar la herramienta.
 %\end{enumerate}
 
-%\gema{Algunos de los problemas que nos hemos encontrado durante el analisis y que podrian ser resueltos de otra forma diferente a la nuestra y quizas puede que varie algo los resultados no lo se}
+\gema{Esto es otra de las cosas que los revisores comentaron y debemos discutir, (abajo): "Kim et al. [14] and Williams et al. [20] also manually analyze samples of SZZ data. However, they report much higher percentages of correct SZZ results. Potential reasons for the discrepancies should be discussed."}
 In studies such as Kim et al.~\cite{kim2006automatic} and Williams et al. \cite{williams2008szz} also manually analyzed samples of SZZ data. However, they report much higher percentages of correct SZZ results than in this study. The reason is that in Kim et al.~\cite{kim2006automatic} the time spends in the manual verification, in mean was 40 seconds, was lower than us, so they didn't go in depth as much as we have done. Whereas we have analyzed the whole context of a bug-fix they only focused in verify the bug-fix hunks, thus they could omit changes in the API or changes due to the evolution of the code. In the other hand, Williams et al.\~cite{williams2008szz} only took 25 random bug fix commits to manually analyze, and probably it was a small size population.
-\gema{Esto es otra de las cosas que los revisores comentaron y debemos discutir: "Kim et al. [14] and Williams et al. [20] also manually analyze samples of SZZ data. However, they report much higher percentages of correct SZZ results. Potential reasons for the discrepancies should be discussed."}
 
 In any case, our research shows evidence that assuming that the previous commit is where the cause of a bug can be found does not hold for a not insignificant percentage of bugs. Most common kind of previous commit which didn't caused the bug are:
 \begin{itemize}
   \item Changes in the API, the addition of an argument in an API called.
   \item Variable renaming.
-  \item Updates of SO, packages or requirements.
+  \item Updates of OS, packages or requirements.
   \item Optimization of the code in some lines. In the context of before and after the change the code do the same, usually this kind of previous commit is in bug reports with more than one previous commit. 
   \item Grammatical bugs influenced from its previous commit. 
 \end{itemize}
  
 
-\gema{En la discussion podemos poner tambien una pequeña lista con los casos mas repetidos en los que el commit previo no es responsable: He revisado esos casos y he obtenido la siguiente lista:
-- Cambios en la APi\\
-- Cambios en el nombre de una variable\\
-- Cambios en el formato, pero no son FP, si no que despues del cambio la funcion hace lo mismo que antes, por ejemplo guardan valores de retorno de funciones en variables y usan esa variable en vez de la llamada de la función directamente, o \\
-- Lineas eliminando 'imports' que no se usan \\
-- Evolución del lenguaje ó código ya que antes no podía soportar ciertas cosas como por ejemplo traducciones y ahora si, por tanto los tickets hablan de fallos en la traduccion y en realidad no habia traduccion porque probablemente en el momento de insertar el código no se soportaba. \\
-- Errores gramaticales arrastrados de commit previos.
-- Actualizaciones de SO, requisitos, etc.
-}
+%\gema{En la discussion podemos poner tambien una pequeña lista con los casos mas repetidos en los que el commit previo no es responsable: He revisado esos casos y he obtenido la siguiente lista:
+%- Cambios en la APi\\
+%- Cambios en el nombre de una variable\\
+%- Cambios en el formato, pero no son FP, si no que despues del cambio la funcion hace lo mismo que antes, por ejemplo guardan valores de retorno de funciones en variables y usan esa variable en vez de la llamada de la función directamente, o \\
+%- Lineas eliminando 'imports' que no se usan \\
+%- Evolución del lenguaje ó código ya que antes no podía soportar ciertas cosas como por ejemplo traducciones y ahora si, por tanto los tickets hablan de fallos en la traduccion y en realidad no habia traduccion porque probablemente en el momento de insertar el código no se soportaba. \\
+%- Errores gramaticales arrastrados de commit previos.
+%- Actualizaciones de SO, requisitos, etc.
+%}
 
 
 \section{Threats to validity}
@@ -806,7 +805,6 @@ The internal threats related to the researchers that have conducted the study ar
     \item We have used a random script to extract the tickets from Launchpad that have been reported during 2015. There could be unintended bias of the data, because many reasons, as for instance the phase of the project.
     \item In some cases, researchers may have classified the previous commit as the cause of the bug, even if this may not be the case (see discussion on additional conditions in if statements).
     \item Also we need add the subjectivity that could present our study.
-    \gema{Debemos poner en los threats to validity la subjetividad del estudio}
 \end{itemize}
 
 The external threats, related to the case of the project, are following:
