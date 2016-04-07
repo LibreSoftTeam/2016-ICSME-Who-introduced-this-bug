@@ -47,7 +47,7 @@
 
 \newif\ifdraft
 \drafttrue
-\draftfalse
+%\draftfalse
 
 
 \documentclass{sig-alternate-05-2015}
@@ -177,7 +177,7 @@ Jesus M. Gonzalez-Barahona\\
 \begin{abstract}
 It is common practice that developers mark in the versioning system when they are fixing a software bug. At first glance, it could seem reasonable to assume that the fixed bug had been introduced in the previous modification of those same parts of the source code (i.e., in the previous commit). In fact, many studies on bug seeding start with this assumption. However, there is little empirical evidence supporting it, and there are reasons to suppose that in some cases the bug may have been introduced by other actions, such as an older modification, or a change in the API that is being called.
 
-This paper tries to shed some light on this topic by analyzing the relationship of bug fixes with their previous commits. To this end, we conducted an observational study on bug reports, their fixes, and their corresponding previous commits for the OpenStack project. Our results show that the assumption that bugs have been introduced in the previous commit does not hold for a large fraction (at least 37\%) of the bugs analyzed.
+This paper tries to shed some light on this topic by analyzing the relationship of bug fixes with their previous commits. To this end, we conducted an observational study on bug reports, their fixes, and their corresponding previous commits for the OpenStack project. Our results show that the assumption that bugs have been introduced in the previous commit does not hold for a large fraction (at least 37\%) of the analyzed bugs.
 \end{abstract}
 
 
@@ -236,9 +236,9 @@ This paper tries to shed some light on this topic by analyzing the relationship 
 
 When a failure is found in some software, developers try to fix it by locating and modifying the source code line(s) that are the cause for the wrong behavior. It may seem at first reasonable to assume that previous modifications of this line or lines are the cause of the bug. That previous modification is what will refer through this paper as the \textit{previous commit}. 
 
-But in fact, to find when and where a bug was introduced in the source code is not a trivial task, and by far more complex than this assumption. This has been largely ignored in much of the bug-fix literature, mainly because the data related to the origin of a bug is \emph{embedded} in the evolution of the software~\cite{sinha2010buginnings}, as the authors state. With this they mean that there is no easy evidence (artifact, comment or log) where developers specify what produced that error from a more historical point of view. The explanation of the cause is thus \emph{embedded} in the project.
+But in fact, to find when and where a bug was introduced in the source code is not a trivial task, and by far more complex than this assumption. This has been largely ignored in much of the bug-fix literature, mainly because the data related to the origin of a bug is \emph{embedded} in the evolution of the software~\cite{sinha2010buginnings}, as Sinha et al. state. With this they mean that there is no easy evidence (artifact, comment or log) where developers specify what produced that error from a more historical point of view. The explanation of the cause is thus \emph{embedded} in the project.
 
-This is the reason why many studies in the area of mining software repositories start with this implicit assumption. As an anecdotal evidence, we have found the following rationales in several areas of research:
+This is the reason why many studies in the area of software maintenance and evolution start with this implicit assumption. As an anecdotal evidence, we have found the following rationales in several areas of research:
 
 \begin{itemize}
   \item bug seeding studies, e.g., \textit{``This earlier change is the one that caused the later fixed''}~\cite{williams2008szz} or \textit{``The lines affected in the process of fixing a bug are the same one that originated or seeded that bug''}~\cite{izquierdo2011developers},
@@ -276,7 +276,7 @@ Figure~\ref{fig:1} shows a clear example of what we understand as the cause of t
 According to the description in the log of the commit that fixed the bug (see Figure~\ref{fig:2}), commit \textit{31f08423} was the one where the bug was introduced, as it used a string variable, while a Boolean had to be used, keeping the concordance with the rest of the code. Therefore, in this case, the bug was introduce in the previous commit.
 
 
-On the other hand, Figure~\ref{fig:3} shows a clear example of a case where the cause of the bug cannot be attributed to the previous commit. In this example, the bug fixing commit log (see Figure~\ref{fig:4}) describes that the name of an argument changed when updating the version causing the failure in the software. This change was done because of the new requirements in the software version, and is unrelated to the changes performed in the previous commit. When the modified lines where introduced the first time, they where not buggy.
+On the other hand, Figure~\ref{fig:3} shows a clear example of a case where the cause of the bug cannot be attributed to the previous commit. In this example, the bug fixing commit log (see Figure~\ref{fig:4}) describes that the name of an argument changed when updating the version causing the failure in the software. This change was done because of new requirements in the software version, and is unrelated to the modifications in the previous commit. When the modified lines where introduced the first time, they where not buggy.
 
 \begin{figure*}[ht]
 \centering
@@ -292,7 +292,7 @@ On the other hand, Figure~\ref{fig:3} shows a clear example of a case where the 
 \label{fig:4}       % Give a unique label
 \end{figure}
 
-Based on anecdotal evidence like the one presented in Figures~\ref{fig:3} and Figure~\ref{fig:4}, we argue that in projects that are continuously evolving, with a large development community, code that at some point was correct could become buggy later. Changes in other parts
+Based on anecdotal evidence like the one presented in Figures~\ref{fig:3} and~\ref{fig:4}, we argue that in projects that are continuously evolving, with a large development community, code that at some point was correct could become buggy later. Changes in other parts
 of the code may trigger wrong behavior (bugs) in places which were correct in the past. This happens often in situations like changes of the API. In the moment the code was written, it was correct and the software worked fine. Additions of new features or enhancements to the API may have as a side effect that the formerly correct code starts to show a wrong behavior, making the software fail. In such cases, the source of the error cannot be attributed to the changes performed in the previous commit, which were correct when they were introduced, since in that moment they referred to a different API.
 
 The goal of this paper is to find out to which extent the cause of bugs can be attributed to the previous commit. We will consider that the previous commit is the cause for the bug if that code was buggy (caused the malfunction) in the context of the code at the moment it was introduced. If the code was right at that time, but the bug is due to some other change in the chain of previous commits, or to changes to other areas of the code (such as a change in APIs), we do not consider that change to be the cause of the bug.
@@ -304,37 +304,37 @@ In detail, we attempt to address the following research questions:
      \item RQ2: How often is the previous commit the cause of the bug?
 \end{itemize}
      
-RQ2 is the main question that we want to answer in this paper: given bugs that have been fixed by changing some code, how many of those were introduced by the previous commit.
+RQ2 is the main question that we want to answer in this paper: given bugs that have been fixed by changing some code, how many of those were introduced by the previous commit?
     
-But be able to answer RQ2, we first need to study the issue-tracking system and identify the subset of closed tickets that correspond to fixed bugs. In essence, RQ1 could be also stated as \emph{Which tickets in the issue tracking system are (real) bug reports?}. This is because (real) bugs are managed in an issue-tracking system together with feature requests, optimization, test cases, etc. As we are only interested in  bugs, we need to identify those as a previous step to analyze if they have been caused by the previous commit. 
+But be able to answer RQ2, we first need to study the issue-tracking system and identify the subset of closed tickets that correspond to fixed bugs. In essence, RQ1 could be also stated as \emph{Which tickets in the issue tracking system are (real) bug reports?}. This is because (real) bugs are managed in an issue-tracking system together with feature requests, optimization, test cases, etc. As we are only interested in bugs, we need to first identify those as a previous step to analyze if they have been caused by the previous commit. 
 
-One interesting aspect of our study is that it addresses a very fundamental aspect of many studies on how bugs are fixed: the underlying assumption that there must be a commit previous to the fix, touching the same lines that were later fixed, when somebody introduced the bug. If some evidence is found that in a large fraction of the cases the corresponding code was correct when it was introduced, there is no reason to blame it as the cause of the bug, even when changing it fixes the bug. Therefore, any result obtained after this assumption should be revisited with some care. We want to contribute with a first step in removing this uncertainty.
+One interesting aspect of our study is that it addresses a very fundamental aspect of many studies on how bugs are fixed: the underlying assumption that for fixed code there must be a commit previous to the fix that \emph{touched} the same lines (in a wrong way). If evidence is found that in a large fraction of the cases the corresponding code was correct when it was introduced, there is no reason to blame it as the cause of the bug, even when changing it fixes the bug. Therefore, any result obtained after this assumption should be revisited with some care. We want to contribute with a first step in removing this uncertainty.
 
-The remainder of this paper is structured as follows. Next, we present the current body of knowledge in section~\ref{sec:related}. Section~\ref{sec:methodology} describes the methodology used to identify the moment in which the bug was introduced in the source code, followed by the results obtained after applying our approach to a selection of OpenStack bug fixes in Section~\ref{sec:results}. Section~\ref{sec:discussion} answers the research questions and discusses potential applications and improvements of our approach. After reporting the limitations and threats to validity in Section~\ref{sec:threats}, we draw some conclusions and point out some potential future work in Section~\ref{sec:conclusions}.
+The remainder of this paper is structured as follows. Next, we present the current body of knowledge in Section~\ref{sec:related}. Section~\ref{sec:methodology} describes the methodology used to identify the moment in which the bug was introduced in the source code, followed by the results obtained after applying our approach to a selection of OpenStack bug fixes in Section~\ref{sec:results}. Section~\ref{sec:discussion} answers the research questions and discusses potential applications and improvements of our approach. After reporting the limitations and threats to validity in Section~\ref{sec:threats}, we draw some conclusions and point out some potential future work in Section~\ref{sec:conclusions}.
 
 
 \section{Related Work}
 \label{sec:related}
 
-Bug-introducing code changes has been a \emph{hot} topic in the mining software repositories research community for over a decade. The most used algorithm to automatically identify bug-introducing code changes has been proposed by Sliwerski et al.~\cite{sliwerski2005changes}, which is an improvement to previous approaches~\cite{vcubranic2003hipikat,fischer2003analyzing,fischer2003populating}. Currently, it is a well-known algorithm, called SZZ, based on text differences to discover modified, added and deleted lines between the bug-fix and its previous version. The SZZ algorithm uses the CVS \texttt{annotate} command\footnote{Other versioning systems provide similar functionality to CVS \texttt{annotate}; for instance, git offers \texttt{blame}.} to identify the last commit that touched these lines.
+The study of bug-introducing code changes has been a \emph{hot} topic in the mining software repositories research community for over a decade. The most used algorithm to automatically identify them has been proposed by Sliwerski et al.~\cite{sliwerski2005changes}, which is an improvement to previous approaches~\cite{vcubranic2003hipikat,fischer2003analyzing,fischer2003populating}. Currently, it is a well-known algorithm, called SZZ, based on text differences to discover modified, added and deleted lines between the bug-fix and its previous version. The SZZ algorithm uses the CVS \texttt{annotate} command\footnote{Other versioning systems provide similar functionality to CVS \texttt{annotate}; for instance, git offers \texttt{blame}.} to identify the last commit that \emph{touched} these lines.
 
 There are several research articles that suggest improvements to the SZZ algorithm. Kim et al.~\cite{kim2006automatic} use annotation graphs instead of CVS annotation to locate, in the previous versions, the lines affected by modification and deletion. Also, they avoid some false positives by not considering blank spaces, changes in the format or changes in the comments. Williams et al. have revisited the SZZ algorithm to track bug-inducing changes and identify types of changes~\cite{williams2008szz}. 
 \gema{mirar como se nombra en[20] porque uno de los revisores nos dijo : "Shouldn't 1(2) be named 'Bug-inducing' instead of 'Fix-inducing'?"}
 
 
 The SZZ algorithm (and its \emph{successors}) have had a considerable impact in the research community. Noteworthy is the fact that the paper with original the SZZ algorithm~\cite{sliwerski2005changes} has been cited, according to Google Scholar, 475 times as of April 
-2016. An enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. Therefore, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Altman et al. use it to predict whether a change is buggy at the time of a commit, evaluating the change classification techniques to address the incorrect evaluation presented by cross-validation~\cite{altman1968financial}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
+2016. The enhanced version of the SZZ algorithm~\cite{kim2006automatic} counts with 123 citations. Hence, there is a myriad of articles that use SZZ on an ample number of scenarios. Without trying to be exhaustive, we offer several examples. Therefore, Yang et al. apply SZZ to find what kind of bug-inducing changes are likely to become a great threat after being marked as bug-fix changes~\cite{yangbug}. Zimmermann et al. use it for predicting bugs in large software systems~\cite{zimmermann2007predicting}. Kim et al. show how to classify file changes as buggy or clean using change information features and source code terms~\cite{kim2008classifying}. Kamei et al. apply it to validate effort-aware bug-prediction models~\cite{kamei2010revisiting}. Eyolfson use it to study if time of the day and developer experience affect the probability of a commit to introduce a bug~\cite{eyolfson2011time}. Izquierdo et al. use the SZZ algorithm to see if developers are fixing their own bugs~\cite{izquierdo2011developers}. Yin et al. use SZZ to find how many fixes to bugs introduce new bugs~\cite{yin2011fixes}. Tantithamthavorn et al. employ it to quickly identify the location of a bug~\cite{tantithamthavorn2013mining}. Fejzer et al. use it to support code review~\cite{fejzer2015supporting}. Altman et al. use it to predict whether a change is buggy at the time of a commit, evaluating the change classification techniques to address the incorrect evaluation presented by cross-validation~\cite{altman1968financial}. Asaduzzaman et al. apply the SZZ algorithm on Android to study its maintainability~\cite{asaduzzaman2012bug}.
 
 %\grex{maybe talk about my paper with dmg and ahmed, where bugs could be found elsewhere~\cite{german2009change}. There the talk is precisely about those bugs whose origina are elsewhere. Title of the paper: \emph{Change impact graphs: Determining the impact of prior codechanges}}
 
-Prechelt and Pepper offer a good overview of the limitations of bug-introducing code changes when adopted by practitioners. They point out that one of the obstacles in the way of a reliable analysis are the ``additional changes between defect insertion time and defect correction time that happen to happen at subsequently defect-corrected locations''~\cite{prechelt2014software}. Some methods that consider sources of information other than the previous commit already exist. Therefore, German et al.~\cite{german2009change} 
+Prechelt and Pepper offer a good overview of the limitations of bug-introducing code changes when adopted by practitioners. They point out that one of the obstacles in the way of a reliable analysis are the ``additional changes between defect insertion time and defect correction time that happen to happen at subsequently defect-corrected locations''~\cite{prechelt2014software}. Some methods that consider sources of information other than the previous commit have been proposed already; so, German et al.~\cite{german2009change} 
 point out that software is in constant change, and that changes performed may have impact across the whole system and may lead to the manifestation of bugs in unchanged parts. In this case, a bug emerges in a different location from the source of the bug, which is a change to a function somewhere else in the source code base. 
 
-Kamei et al. used the 'Just-in Time Quality Assurance' concept, which focuses in identifying defect-prone at level of software changes/patches instead of files or packages. Allowing developers can review these risky changes while they are still fresh in their minds. In the paper, they present a change risk model in which several characteristics of a software changes are implemented(lines added, developer experience...). They empirically evaluated their approach to identify in real time software changes that would be a defect ~\cite{kamei2013large}. Altman et al. used the same concept to carried out a study where the authors applied change classification on a proprietary code case, sharing the experience and lesson learned. They concluded that interpretable prediction models are needed for software defect prediction~\cite{altman1968financial}. 
+Kamei et al.
+%used the 'Just-in Time Quality Assurance' concept, which focuses on identifying defect-prone at the level of software changes/patches instead of files or packages and allowing developers to review these risky changes while they are still fresh in their minds. In the paper, they 
+present a change risk model in which several characteristics of a software change are considered (lines added, developer experience...) and empirically evaluate their approach to identify in real-time those software changes that could become a defect~\cite{kamei2013large}. Altman et al. use the same concept to study where authors that applied change classification on a proprietary code base, sharing the experience and lessons learned. They concluded that interpretable prediction models are needed for software defect prediction~\cite{altman1968financial}. 
 
-Sinha et al. present another technique to identify the origins of a bug in~\cite{sinha2010buginnings}. Their technique is not text-based technique, as the SZZ algorithm, as the authors analyze the effects of bug-fix changes on program dependencies. So, taking into account the semantics of the source code they achieved higher accuracy in identifying the origins of a bug.
-
-The two approaches have some methodological patterns in common:
+Sinha et al. present another technique to identify the origins of a bug in~\cite{sinha2010buginnings}. Their technique is not a text-based technique like the SZZ algorithm, as the authors analyze the effects of bug-fix changes on program dependencies. So, taking into account the semantics of the source code they achieved higher accuracy in identifying the origins of a bug. The two approaches have however some methodological patterns in common:
 
 \begin{enumerate}
   \item They find the differences between the bug-fix version and the previous version of the file to recognize those changes done by the bug-fix commit. 
@@ -342,8 +342,8 @@ The two approaches have some methodological patterns in common:
 \end{enumerate}
 
 
-On the other hand, the question of whether a bug report is really a bug or not has been widely studied in the 
-mining software repositories research literature in the last years. Therefore, Pan et al. classify the different types of bug-fix patterns that most commonly exist~\cite{pan2009toward}. Antoniol et al. have use a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. Tantithamthavorn et al. investigated the nature of mislabelled issue reports and how this mislabelled impact in the prediction models, achieving that the mislabelling presented in the issue reports is not random. Furthermore, after training models with clean and noise data, they obtained the same accuracy in the results~\cite{tantithamthavorn2015impact}. 
+On the other hand, the question of whether a bug report is really a bug or not has been widely studied in the software maintenance and evolution research literature in the last years. In this sense, Pan et al. classify the different types of bug-fix patterns that exist most commonly~\cite{pan2009toward}. Antoniol et al. have used a text-based approach to classify bug reports into corrective maintenance and other kinds of activities~\cite{antoniol2008bug}. Herzig et al. have done a manual examination of thousands of bug reports and have found that around a third of them are misclassified, in the sense that they were not a bug report but a feature request, an internal refactoring or an update to documentation~\cite{herzig2013s}. They show that almost 40\% of the files marked as defective did not have a bug, and suggest that this missclassification introduces bias in bug prediction models and tools. Tantithamthavorn et al. investigated the nature of mislabeled issue reports and how they impact in the prediction models~\cite{tantithamthavorn2015impact}.
+%, achieving that the mislabeling presented in the issue reports is not random. Furthermore, after training some models with clean and noise data, they obtained the same accuracy in the results 
 
 
  
@@ -373,16 +373,16 @@ In these bug reports we can find a comment with the link to Gerrit where the bug
 
 First, we have to identify what issues found in Launchpad are bug reports. This is not a trivial task and is labor intensive as it has to be done manually. As the process is repetitive, we developed a web-based tool\footnote{\url{bugtracking.libresoft.es}} that helps in the classification process. This tool offers all relevant information required to decide if an issue corresponds to a bug report or not. The tool uses information extracted automatically from the project repositories, and offers a web-based interface which allows for collaboration, traceability and transparency in the identification of bug reports.
 
-During the identification of the issues, we have to take into account the next parameters for each ticket:
+During the identification of the issues, we have to take into account the following parameters for each ticket:
 
 \begin{itemize}
   \item The title of the issue report
   \item The description of the issue report
   \item The description of the fix commit
-  \item The changes to the source code, as sometimes neither the descriptions nor the comments by developers and reviewers in the Launchpad and Gerrit of each ticket, clarified the underlying ticket.
+  \item And sometimes the changes to the source code, when neither the description nor the comments by developers and reviewers in Launchpad and Gerrit clarified the underlying ticket.
 \end{itemize}
 
-We can see a screenshot of the web interface of the tool in Figure~\ref{fig:screenshot}. The left side is used to display the information extracted from Launchpad and Gerrit, and the right part is the one in which the researchers can write and classify the ticket into one of the three groups. Additional meta-data, such as keywords, comments and the reviewer are included in the database.
+A screenshot of the web interface of the tool is shown in Figure~\ref{fig:screenshot}. The left side is used to display the information extracted from Launchpad and Gerrit; on the right researchers can write and classify the ticket into one of the three groups. Additional meta-data, such as keywords, comments and the reviewer are included in the database.
 
 \begin{figure}[ht]
 \centering
@@ -391,36 +391,36 @@ We can see a screenshot of the web interface of the tool in Figure~\ref{fig:scre
 \label{fig:screenshot}       % Give a unique label
 \end{figure}
 
-Each ticket was then categorized into one of three following groups:
+Each ticket was categorized into one of following three groups:
 
 \begin{enumerate}
   \item Group 1 (\textit{Bug Report}): The ticket describes a bug report.
-  \item Group 2 (\textit{Not Bug Report}): The ticket describes a feature, an optimization code, changes in test files or other not bug reports.
+  \item Group 2 (\textit{Not Bug Report}): The ticket describes a feature, an optimization code, changes in test files or other situations, but not bug reports.
   \item Group 3 (\textit{Undecided}): The ticket presents a vague description and cannot be classified without doubts.
 \end{enumerate}
 
 From the experience of analyzing a small number of tickets, we agreed on following four criteria: 
 \begin{enumerate}
 
-    \item Each time that the title or the description of a ticket describes an unexpected behaviour in the program, our criteria indicated that it was considered as a bug report. 
-    \item The description of the ticket presents an optimization, deletion of a dead code or the implementation of new characteristics, we agreed not to classify it as a bug report because there is no failure. 
-    \item When the ticket described that some updates in the code were required such as updates in the SO or in a version of a package/module which is being used in the code, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
-    \item When only test files are affected in a ticket, we classified it as not being a bug report. We consider bug errors in test files are a different type of bugs, as the software may still work as expected.
+    \item Each time the title or the description of a ticket describes an unexpected behavior in the program, it was considered as a bug report. 
+    \item If the description of the ticket presents an optimization, deletion of a dead code or the implementation of new characteristics, we agreed not to classify it as a bug report because there is no failure. 
+    \item When the ticket described that some updates in the code were required, such as updates in the SO \grex{what is a SO?} or in a version of a package/module which is being used in the code, the ticket is a bug report. We consider all tickets that require updating as bug reports, because updating a software hints to the software not operating as expected. \gema{Esto es lo que dijo uno de los revisores sobre este parrafo : "First, the rule is unclear for me. Do you mean an update to the ticket? The code? The review? Second, the rationale is unclear and unsupported. Why would such an update indicate that a bug was present?" Deberíamos modificarlo}
+    \item When only test files are affected by a ticket, it is not a bug report. We consider bug errors in test files to be of a different type, as the software may still work as expected.
     
 \end{enumerate}
 
-Sometimes we were unable to answer all the questions due to having insufficient data or because of the complexity of the issue. In this case, the ticket was classified into the \textit{Undecided} group.
+Sometimes we have been unable to classify a bug report because we did not have sufficient data or because of the complexity of the issue. In those cases, tickets have been classified into the \textit{Undecided} group.
 
 \subsection{Second Stage: Who caused the Bug?}
 \label{sec:secondStage}
 
-In this second part, our work was focused on analyzing the previous commit exclusively for those tickets classified in the \textit{Bug Report} group. Therefore we had to locate the line that contained the bug, inquire the reason of the software failure, and gathering additional information on the context of the project.
+In this second part, our work was focused on analyzing the previous commit exclusively for those tickets classified in the \textit{Bug Report} group. Therefore we had to locate the line that contained the bug, inquire the reason of the software failure, and sometimes gather additional information from the context of the bug and the project.
 
 For that, we had to analyze the lines involved in the bug fix and in the \emph{parent} commit of the bug fix commit, being sure that the lines were added, inserted or modified in the previous commit. We refer to \emph{parent} commit as the commit that modified any line of code in the file before the fix-bug commit, in contrast to the \emph{previous} commit where the modified lines were the same than in the fix-bug commit. It should be noted that those lines modified in the parent commit do not have to be the ones that have been modified in the bug-fix.
 Figure~\ref{fig:parentgerrit} contains a snapshot of the information provided by Gerrit, where the link to the parent commit(s) can be found, that corresponds to the bug-fix shown in~\ref{fig:1}. As can be seen, the previous commit (\textit{31f08423}) in Figure~\ref{fig:1} is different from the parent commit displayed in Figure~\ref{fig:parentgerrit} (\textit{db7fc59ebc}).
 
 
-We do this process to be sure that we are looking the correct change, because sometimes although the commit added many lines, if you look the code before the commit you can check that some of the lines added was there, and in that case, it is a false positive where the previous commit did not cause the bug. 
+We do this process to be sure that we are looking at the correct change, because sometimes, although the commit added many lines, the code before the commit contained some of the lines added; and such cases, we have false positives where the previous commit did not cause the bug. 
 
 
 %\grex{Gema, puedes aclarar este parrafo? Que es el "parent" commit? Es lo mismo que el previous commit? Es la primera vez que hablamos de el. Quizas sea buena idea que lo reformules en castellano, porque ahora mismo es criptico}\gema{el parent commit es el ultimo commit que se hizo en el fichero antes de que se realizase el que arreglo el error, por tanto lo que hago usar diff y blame en el commit parent y en el commit que arregla el error para saber que lineas se han cambiado y que commit las cambio), y despues hago lo mismo con el commit previo y el commit parent del previo para saber que en realidad en ese momento se produjo el cambio. En el gerrit nos dan esa info como se puede ver en la figura}
@@ -442,8 +442,8 @@ The procedure for each file involved in a bug fix is as follows:
 
 \begin{enumerate}
   \item git checkout \textit{commit that fixed the bug}, git blame \textit{file involved}. In this step we can see the lines added, modified or deleted by the commit that fixed the bug.
-  \item git checkout \textit{parent of commit that fix the bug}, git blame \textit{file involved}. In this step we can see the previous commits for the different lines touched in the fixed bug.
-  \item git checkout \textit{parent of previous commit}, git blame \textit{file involved}. With this step we can ensure that the previous commit inserted these lines.
+  \item git checkout \textit{parent of commit that fixes the bug}, git blame \textit{file involved}. In this step we can see the previous commits for the different lines \emph{touched} in the fixed bug.
+  \item git checkout \textit{parent of previous commit}, git blame \textit{file involved}. With this step we can ensure that the previous commit introduced these lines.
 \end{enumerate}
 
 Finally we had to discard some \emph{noise} present in our results. This happened when the changes in the previous commit could not have caused the bug. Therefore, we deleted the previous commits for which the following criteria were met:
@@ -454,7 +454,7 @@ Finally we had to discard some \emph{noise} present in our results. This happene
     \item Copied lines
     \item Changes in source code comments
     \item Updates in the version number of a file/software 
-    \item These commits that were committed after the bug report was opened in Launchpad, according to \'Sliwerski et al.~\cite{sliwerski2005changes}.
+    \item Commits that were committed after the bug report was opened in Launchpad, according to \'Sliwerski et al.~\cite{sliwerski2005changes}.
 \end{itemize}
 
 
@@ -767,7 +767,7 @@ In any case, our research shows evidence that assuming that the previous commit 
   \item Variable renaming.
   \item Updates of SO, packages or requirements.
   \item Optimization of the code in some lines. In the context of before and after the change the code do the same, usually this kind of previous commit is in bug reports with more than one previous commit. 
-  \item Gramatical bugs influenced from its previous commit. 
+  \item Grammatical bugs influenced from its previous commit. 
 \end{itemize}
  
 
