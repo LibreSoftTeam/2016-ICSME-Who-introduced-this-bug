@@ -100,6 +100,11 @@ S.~Kim, T.~Zimmermann, K.~Pan, and E.~J. Whitehead~Jr.
 \newblock In {\em Automated Software Engineering, 2006. ASE'06. 21st IEEE/ACM
   International Conference on}, pages 81--90. IEEE, 2006.
 
+\bibitem{neuendorf2002content}
+K.~A. Neuendorf.
+\newblock {\em The content analysis guidebook}.
+\newblock Sage, 2002.
+
 \bibitem{pan2009toward}
 K.~Pan, S.~Kim, and E.~J. Whitehead~Jr.
 \newblock Toward an understanding of bug fix patterns.

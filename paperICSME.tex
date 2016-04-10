@@ -175,9 +175,9 @@ Jesus M. Gonzalez-Barahona\\
 
 \maketitle
 \begin{abstract}
-It is common practice that developers mark in the versioning system when they are fixing a software bug. At first glance, it could seem reasonable to assume that the fixed bug had been introduced in the previous modification of those same parts of the source code (i.e., in the previous commit). In fact, many studies on bug seeding start with this assumption. However, there is little empirical evidence supporting it, and there are reasons to suppose that in some cases the bug may have been introduced by other actions, such as an older modification, or a change in the API that is being called.
+  The assumption that ``a given bug was introduced by the lines of code that were modified to fix it'' seems at first glance very reasonable. In fact, many studies on bug fixing are built upon it. However, there is little empirical evidence supporting it, and a careful examination shows other possible sources for the introduction of bugs, such as an older modification, or a change in some API in a different part of the code.
 
-This paper tries to shed some light on this topic by analyzing the relationship of bug fixes with their previous commits. To this end, we conducted an observational study on bug reports, their fixes, and their corresponding previous commits for the OpenStack project. Our results show that the assumption that bugs have been introduced in the previous commit does not hold for a large fraction (at least 37\%) of the analyzed bugs.
+This paper presents an observational study designed to sheed some more light in this area. For that, we studied the lines changed by bug fixes as a part of ``the previous commit'' (or commits) in the OpenStack project. Using information from the code management, issue tracking, and code review systems, we analyzed if the code introduced by previous commits was correct at the time of introduction, and was therefore the cause of the bug. Our results show that the assumption that bugs were introduced in the previous commit does not hold for a large fraction (at least 37\%) of the analyzed bugs.
 \end{abstract}
 
 
